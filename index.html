@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <link rel="stylesheet" href="styles/index.css" type="text/css"/>
+    <script type="text/javascript" src="scripts/jquery-3.2.1.min.js"></script>
+</head>
+<script type="text/javascript">
+    $(function () {
+        var inner = $(".inner");
+        var innerGroup = $(".inner-wrapper");
+        var indicateGroup = $(".indicate span");
+//        var date=new Date();
+//        var time=date.getTime();
+        var index = 0;
+        var flag = false;//用于标记点击下面指示器
+        var bannerWidth = innerGroup.find("img").eq(0).width();
+        indicateGroup.on("click", function () {
+            if (!flag) {
+                flag = true;
+            }
+            clearInterval(timer);
+            index = $(this).index();
+            scroll(index);
+        });
+        inner.hover(function () {
+            //鼠标移入悬停
+            console.log("in")
+            clearInterval(timer);
+        }, function () {
+            //鼠标移出
+            console.log("out")
+            if(!flag){
+                timer = setInterval(autoScroll, 3000);
+            }
+        });
+
+        //图片滚动
+        function scroll(currentIndex) {
+            inner.stop(true).animate({left: -index * bannerWidth}, "slow", function () {
+                //待处理
+                if (flag) {
+                    flag = false;
+                    timer = setInterval(autoScroll, 3000);
+                }
+            });
+            $(".indicate span").eq(currentIndex).addClass("active").siblings().removeClass("active");
+        };
+        //自动滚动
+        function autoScroll() {
+            //TODO 测试
+//            var current=new Date().getTime();
+//            console.log(current-time);
+//            time=current;
+
+            if (index == (innerGroup.length - 1)) {
+                index = 0;
+            } else {
+                index++;
+            }
+            scroll(index);
+        }
+
+        var timer = setInterval(autoScroll, 3000);
+    });
+
+
+</script>
+<body>
+<div class="container">
+    <div class="inner clear-fix">
+        <div class="inner-wrapper"><img src="images/banner01.jpg" alt="1"/></div>
+        <div class="inner-wrapper"><img src="images/banner02.jpg" alt="2"/></div>
+        <div class="inner-wrapper"><img src="images/banner03.jpg" alt="3"/></div>
+        <div class="inner-wrapper"><img src="images/banner04.jpg" alt="4"/></div>
+    </div>
+    <div class="indicate">
+        <span class="active">1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+    </div>
+</div>
+</body>
+</html>

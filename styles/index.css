@@ -1,0 +1,62 @@
+body ,div {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 0px auto;
+    width: 520px;
+    overflow: hidden;
+    position: relative;
+    background: gray;
+}
+
+.inner {
+    width: 120000px;
+    height: 280px;
+    position: relative;
+}
+
+.inner-wrapper {
+    float: left;
+}
+.inner img{
+    display: block;
+}
+.clear-fix {
+    *zoom: 1;
+}
+
+.clear-fix:after {
+    display: block;
+    clear: both;
+    visibility: hidden;
+    content: "";
+    height: 0;
+}
+
+.indicate {
+    position: absolute;
+    bottom: 10px;
+    width: 520px;
+    text-align: center;
+}
+
+.indicate span {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+    line-height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.indicate .active {
+    background-color: red;
+    color: #FFFFFF;
+}
+
+a {
+    text-decoration: none;
+}
